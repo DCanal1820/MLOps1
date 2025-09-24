@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Data and artifacts
+mlops-tp-final/data/
+mlops-tp-final/mlruns/
+mlops-tp-final/models/
+mlops-tp-final/.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+

@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/b42a2f43681e42cbb97949720505e775/artifacts
+end_time: 1758726137571
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b42a2f43681e42cbb97949720505e775
+run_name: upset-wren-314
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758726059824
+status: 4
+tags: []
+user_id: airflow

@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/0a149b89c2a14cd99c1ea8f65ea4be83/artifacts
+end_time: 1758727039613
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0a149b89c2a14cd99c1ea8f65ea4be83
+run_name: dashing-cub-100
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758726972196
+status: 3
+tags: []
+user_id: airflow
