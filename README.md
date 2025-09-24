@@ -312,5 +312,3 @@ Si tienes problemas:
 4. Abre un issue en GitHub
 
 ---
-
-**¡Disfruta tu pipeline de MLOps! 🚀**
