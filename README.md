@@ -1,97 +1,316 @@
-## MLOps - Entrenamiento y Tracking con Airflow + MLflow
+# 🚀 MLOps Project - Pipeline Completo de Machine Learning
 
-Este proyecto empaqueta el entrenamiento del modelo de `Aprendizaje_de_maquina_ultima_version` con:
+[![Docker](https://img.shields.io/badge/Docker-Enabled-blue)](https://www.docker.com/)
+[![Airflow](https://img.shields.io/badge/Apache%20Airflow-2.9.3-green)](https://airflow.apache.org/)
+[![MLflow](https://img.shields.io/badge/MLflow-Latest-orange)](https://mlflow.org/)
+[![Python](https://img.shields.io/badge/Python-3.11-blue)](https://python.org/)
 
-- Airflow (Webserver + Scheduler + Postgres)
-- MLflow UI para tracking (montando `./mlruns`)
-- Scripts y DAG mínimos para ejecutar el entrenamiento
+Un pipeline completo de MLOps que combina **Apache Airflow** para orquestación de workflows y **MLflow** para tracking de experimentos y modelos. Diseñado para ser fácil de usar desde GitHub con un solo comando.
 
-### Estructura
+## ✨ Características
+
+- 🔄 **Orquestación**: Apache Airflow para workflows de ML
+- 📊 **Tracking**: MLflow para experimentos y modelos
+- 🐳 **Containerizado**: Todo en Docker para fácil despliegue
+- 🚀 **Setup Automático**: Un comando para configurar todo
+- 📈 **Monitoreo**: Interfaces web para Airflow y MLflow
+- 🔧 **Desarrollo**: Makefile con comandos útiles
+
+## 🏗️ Arquitectura
+
+```mermaid
+graph TB
+    A[GitHub Repository] --> B[Clone & Setup]
+    B --> C[Docker Compose]
+    C --> D[PostgreSQL]
+    C --> E[Airflow Webserver]
+    C --> F[Airflow Scheduler]
+    C --> G[MLflow UI]
+    
+    E --> H[DAGs]
+    F --> H
+    H --> I[Train Model Script]
+    I --> J[MLflow Tracking]
+    J --> G
+    
+    D --> E
+    D --> F
+```
+
+## 📁 Estructura del Proyecto
 
 ```
-mlops-tp-final/
-  dags/
-    train_model_dag.py          # DAG que ejecuta el entrenamiento
-  scripts/
-    train_model.py              # Entrenamiento (scikit-learn + MLflow)
-  data/
-    df.pkl                      # Dataset usado por el script
-  mlruns/                       # Store local de MLflow (experimentos y artefactos)
-  Dockerfile.airflow            # Imagen de Airflow con dependencias de ML
-  docker-compose.yaml           # Servicios: postgres, airflow, mlflow-ui
-  Makefile                      # Comandos útiles
-  README.md                     # Este documento
+MLOps1/
+├── 📁 dags/                    # DAGs de Airflow
+│   └── train_model_dag.py      # DAG para entrenamiento
+├── 📁 scripts/                 # Scripts de Python
+│   └── train_model.py          # Script de entrenamiento
+├── 📁 data/                    # Datos de entrenamiento
+│   └── df.pkl                  # Dataset principal
+├── 📁 mlruns/                  # MLflow tracking store
+├── 🐳 docker-compose.yaml      # Configuración de servicios
+├── 🐳 Dockerfile.airflow       # Imagen personalizada
+├── 📋 requirements.txt         # Dependencias Python
+├── ⚙️ Makefile                 # Comandos útiles
+├── 🚀 setup.sh                 # Script de configuración
+├── 📖 README.md                # Este archivo
+└── 🔧 env.example              # Variables de entorno
 ```
 
-### Requisitos
+## 🚀 Inicio Rápido
 
-- Docker Desktop y Docker Compose
-- macOS / Linux / Windows WSL2
+### Prerrequisitos
 
-### Puertos
+- **Docker Desktop** (versión 4.0+)
+- **Git** (para clonar el repositorio)
+- **Make** (opcional, pero recomendado)
 
-- Airflow: `http://localhost:8080`
-- MLflow UI: `http://localhost:5001`
+### 🎯 Instalación en 3 Pasos
 
-### Puesta en marcha (rápida)
+1. **Clonar el repositorio:**
+   ```bash
+   git clone <tu-repositorio-url>
+   cd MLOps1
+   ```
 
-1) Construir y levantar
-```
-make build
+2. **Configuración automática (primera vez):**
+   ```bash
+   make setup
+   ```
+   
+   ⚡ **Esto hace todo automáticamente:**
+   - Construye las imágenes Docker
+   - Inicializa la base de datos
+   - Crea el usuario administrador
+   - Ejecuta un entrenamiento inicial
+   - Configura MLflow
+
+3. **¡Listo! Accede a las interfaces:**
+   - 🌐 **Airflow UI**: http://localhost:8080
+   - 📊 **MLflow UI**: http://localhost:5001
+   - 👤 **Credenciales**: `admin` / `admin`
+
+### 🔄 Uso Diario
+
+```bash
+# Levantar servicios (después de la primera vez)
 make up
-```
 
-2) Inicializar Airflow y crear usuario admin
-```
-make init
-make user
-```
+# Ver estado de servicios
+make status
 
-3) Abrir las UIs
-```
-make ui
-```
+# Ver logs en tiempo real
+make logs
 
-4) Ejecutar entrenamiento
-
-- Opción A (desde Airflow): entrar a `http://localhost:8080`, loguearte con `admin/admin`, activar y ejecutar el DAG `entrenamiento_modelo_ml`.
-- Opción B (directo):
-```
+# Ejecutar entrenamiento manual
 make train
+
+# Abrir interfaces web
+make ui
+
+# Parar servicios
+make down
 ```
 
-5) Ver resultados en MLflow
+## 📋 Comandos Disponibles
 
-- Abrir `http://localhost:5001` y entrar al experimento `Default`. Verás el run con métricas y el modelo en `artifacts/`.
+| Comando | Descripción | Cuándo usar |
+|---------|-------------|-------------|
+| `make setup` | 🚀 Configuración inicial completa | **Solo primera vez** |
+| `make up` | ⬆️ Levantar servicios | Uso diario |
+| `make down` | ⬇️ Parar servicios | Al terminar |
+| `make restart` | 🔄 Reiniciar servicios | Si hay problemas |
+| `make status` | 📊 Ver estado de contenedores | Verificar estado |
+| `make logs` | 📝 Ver logs de todos los servicios | Debugging |
+| `make train` | 🤖 Ejecutar entrenamiento | Entrenar modelo |
+| `make ui` | 🌐 Abrir interfaces web | Acceso rápido |
+| `make clean` | 🧹 Limpiar todo | Reset completo |
+| `make reset` | 🔄 Reset completo | Empezar de cero |
 
-### Notas técnicas
+## 🎯 Uso de las Interfaces
 
-- El script `scripts/train_model.py` lee los datos desde `/opt/airflow/data/df.pkl` (mapeado desde `./data/`).
-- El tracking de MLflow se realiza contra `http://host.docker.internal:5001` desde los contenedores, por lo que la UI local (`http://localhost:5001`) mostrará los runs.
-- Los artefactos y runs persisten en `./mlruns/` (montado en MLflow UI y Airflow).
+### 📊 Airflow UI (http://localhost:8080)
 
-### Comandos útiles
+1. **Inicia sesión** con `admin` / `admin`
+2. Ve a la pestaña **"DAGs"**
+3. Encuentra el DAG `entrenamiento_modelo_ml`
+4. **Activa el DAG** (toggle switch)
+5. **Ejecuta manualmente** si es necesario
 
+**Funcionalidades:**
+- Monitoreo de workflows
+- Ejecución manual de DAGs
+- Visualización de logs
+- Gestión de usuarios
+
+### 🧪 MLflow UI (http://localhost:5001)
+
+1. Ve a la pestaña **"Experiments"**
+2. Selecciona el experimento **"Default"**
+3. **Explora los runs** de entrenamiento
+4. **Compara métricas** entre runs
+5. **Descarga modelos** entrenados
+
+**Funcionalidades:**
+- Tracking de experimentos
+- Comparación de modelos
+- Visualización de métricas
+- Descarga de artefactos
+
+## 🤖 Entrenamiento de Modelos
+
+### Script de Entrenamiento
+
+El script `scripts/train_model.py` entrena un **RandomForestRegressor** con:
+
+- **📊 Datos**: Carga desde `data/df.pkl`
+- **🎯 Target**: Variable `descuento`
+- **📈 Métricas**: MAE, RMSE, R2, tiempo de entrenamiento
+- **📝 Tracking**: Parámetros y métricas en MLflow
+
+### Parámetros del Modelo
+
+```python
+best_params = {
+    'n_estimators': 30,
+    'max_depth': 12,
+    'min_samples_split': 2,
+    'min_samples_leaf': 1
+}
 ```
-make ps         # Ver estado de contenedores
-make logs       # Logs de los servicios
-make restart    # Reinicia todo el stack
-make down       # Apaga los servicios
+
+### Ejecutar Entrenamiento
+
+```bash
+# Opción 1: Desde Airflow UI
+# Activa el DAG y ejecuta manualmente
+
+# Opción 2: Desde terminal
+make train
+
+# Opción 3: Directo con Docker
+docker compose exec airflow-webserver python /opt/airflow/scripts/train_model.py
 ```
 
-### Problemas comunes
+## 🔧 Configuración Avanzada
 
-- "Airflow pide inicializar DB": ejecutar `make init`.
-- "No puedo loguearme": ejecutar `make user` para recrear `admin/admin`.
-- "MLflow UI vacía": recargar con Cmd+Shift+R; validar que el contenedor `mlflow-ui` esté `Up` (`make ps`).
-- "Entrenamiento falla leyendo df.pkl": asegurate de que `mlops-tp-final/data/df.pkl` exista.
+### Variables de Entorno
 
-### Entrega
+Copia `env.example` a `.env` y modifica según necesites:
 
-Para entregar al cliente:
+```bash
+cp env.example .env
+```
 
-1) Incluir esta carpeta `mlops-tp-final/` en el repo (excluyendo `data/`, `mlruns/` y `models/` por `.gitignore`).
-2) Instruir a ejecutar los pasos de "Puesta en marcha" (build, up, init, user, ui, train).
-3) Validar que las UIs respondan y que el run aparezca en MLflow.
+### Puertos Personalizados
 
+Si necesitas cambiar los puertos, edita `docker-compose.yaml`:
 
+```yaml
+ports:
+  - "8080:8080"  # Airflow UI
+  - "5001:5000"  # MLflow UI
+  - "5432:5432"  # PostgreSQL
+```
+
+### Agregar Datos
+
+1. Coloca tu archivo de datos en `data/df.pkl`
+2. Asegúrate de que tenga la columna `descuento`
+3. Reinicia los servicios: `make restart`
+
+## 🔍 Troubleshooting
+
+### ❌ Problemas Comunes
+
+| Problema | Solución |
+|----------|----------|
+| **"Database not initialized"** | `make init` |
+| **Servicios no arrancan** | `make clean && make setup` |
+| **Error de permisos** | `chmod -R 777 mlruns/` |
+| **Puerto ocupado** | Cambia puertos en `docker-compose.yaml` |
+| **Sin datos** | Coloca `df.pkl` en `data/` |
+
+### 🔍 Verificación de Estado
+
+```bash
+# Ver contenedores corriendo
+make ps
+
+# Ver logs en tiempo real
+make logs
+
+# Ver logs específicos
+make logs-airflow
+make logs-mlflow
+
+# Verificar conectividad
+curl http://localhost:8080/health
+curl http://localhost:5001/health
+```
+
+### 🆘 Reset Completo
+
+Si todo falla, haz un reset completo:
+
+```bash
+make reset
+```
+
+Esto limpia todo y vuelve a configurar desde cero.
+
+## 🛠️ Desarrollo
+
+### Agregar Nuevos DAGs
+
+1. Crea el archivo en `dags/`
+2. Sigue el patrón de `train_model_dag.py`
+3. Reinicia Airflow: `make restart`
+
+### Modificar Scripts
+
+1. Edita `scripts/train_model.py`
+2. Los cambios se reflejan automáticamente
+3. Ejecuta: `make train`
+
+### Agregar Dependencias
+
+1. Edita `requirements.txt`
+2. Reconstruye: `make build`
+3. Reinicia: `make restart`
+
+## 📦 Tecnologías
+
+| Tecnología | Versión | Propósito |
+|------------|---------|-----------|
+| **Apache Airflow** | 2.9.3 | Orquestación de workflows |
+| **MLflow** | Latest | Tracking de experimentos |
+| **PostgreSQL** | 13 | Base de datos |
+| **Python** | 3.11 | Lenguaje de programación |
+| **Docker** | Latest | Containerización |
+| **scikit-learn** | Latest | Machine Learning |
+
+## 🤝 Contribución
+
+1. Fork el repositorio
+2. Crea una rama: `git checkout -b feature/nueva-funcionalidad`
+3. Commit: `git commit -m 'Agregar nueva funcionalidad'`
+4. Push: `git push origin feature/nueva-funcionalidad`
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto es parte del trabajo final de MLOps.
+
+## 🆘 Soporte
+
+Si tienes problemas:
+
+1. Revisa la sección [Troubleshooting](#-troubleshooting)
+2. Verifica los logs: `make logs`
+3. Haz un reset: `make reset`
+4. Abre un issue en GitHub
+
+---
+
+**¡Disfruta tu pipeline de MLOps! 🚀**
