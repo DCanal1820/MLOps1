@@ -7,9 +7,9 @@
 
 ## 📋 Trabajo Final - MLOps 1
 
-Este proyecto constituye el **Trabajo Final** para la materia **MLOps 1** del programa de posgrado. Se dedicó a la implementación de un pipeline completo de Machine Learning Operations (MLOps) que integra las mejores prácticas de la industria para el desarrollo, despliegue y monitoreo de modelos de machine learning en producción.
+Este proyecto constituye el **Trabajo Final** para la materia MLOps 1. Se dedicó a la implementación de un pipeline completo de Machine Learning Operations (MLOps) que integra las mejores prácticas de la industria para el desarrollo, despliegue y monitoreo de modelos de machine learning en producción.
 
-El proyecto se enfoca en la **automatización del proceso de entrenamiento** de modelos de regresión utilizando técnicas de aprendizaje automático, específicamente implementando un **RandomForestRegressor** para la predicción de descuentos comerciales. La solución combina **Apache Airflow** para la orquestación de workflows y **MLflow** para el tracking de experimentos y modelos, todo containerizado con Docker para facilitar el despliegue y la reproducibilidad.
+El proyecto se enfoca en la automatización del proceso de entrenamiento de modelos de regresión utilizando técnicas de aprendizaje automático, específicamente implementando un RandomForestRegressor para la predicción de descuentos comerciales. La solución combina Apache Airflow para la orquestación de workflows y MLflow para el tracking de experimentos y modelos, todo containerizado con Docker para facilitar el despliegue y la reproducibilidad.
 
 ## 👥 Integrantes del Grupo
 
