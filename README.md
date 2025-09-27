@@ -23,8 +23,6 @@ Los integrantes del grupo, ordenados alfabéticamente:
 
 ---
 
-Un pipeline completo de MLOps que combina **Apache Airflow** para orquestación de workflows y **MLflow** para tracking de experimentos y modelos. Diseñado para ser fácil de usar desde GitHub con un solo comando.
-
 ## ✨ Características
 
 - 🔄 **Orquestación**: Apache Airflow para workflows de ML
