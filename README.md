@@ -5,6 +5,24 @@
 [![MLflow](https://img.shields.io/badge/MLflow-Latest-orange)](https://mlflow.org/)
 [![Python](https://img.shields.io/badge/Python-3.11-blue)](https://python.org/)
 
+## 📋 Trabajo Final - MLOps 1
+
+Este proyecto constituye el **Trabajo Final** para la materia **MLOps 1** del programa de posgrado. Se dedicó a la implementación de un pipeline completo de Machine Learning Operations (MLOps) que integra las mejores prácticas de la industria para el desarrollo, despliegue y monitoreo de modelos de machine learning en producción.
+
+El proyecto se enfoca en la **automatización del proceso de entrenamiento** de modelos de regresión utilizando técnicas de aprendizaje automático, específicamente implementando un **RandomForestRegressor** para la predicción de descuentos comerciales. La solución combina **Apache Airflow** para la orquestación de workflows y **MLflow** para el tracking de experimentos y modelos, todo containerizado con Docker para facilitar el despliegue y la reproducibilidad.
+
+## 👥 Integrantes del Grupo
+
+Los integrantes del grupo, ordenados alfabéticamente:
+
+- **Calabia, Juan Manuel**
+- **Canal, David**
+- **Cofré Villalón, Francisco**
+- **Diaz, Natalia Beatriz**
+- **Vasquez, Jorge**
+
+---
+
 Un pipeline completo de MLOps que combina **Apache Airflow** para orquestación de workflows y **MLflow** para tracking de experimentos y modelos. Diseñado para ser fácil de usar desde GitHub con un solo comando.
 
 ## ✨ Características
