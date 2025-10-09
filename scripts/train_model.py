@@ -8,6 +8,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 
+def main():
 # Configurar tracking apuntando al servidor MLflow UI en la host (Docker Desktop)
 # Dentro del contenedor, la host se ve como "host.docker.internal"
 mlflow.set_tracking_uri("http://host.docker.internal:5001")
@@ -67,3 +68,8 @@ with mlflow.start_run():
     
     print(f"Modelo: {best_name} | MAE={mae:.4f}  RMSE={rmse:.4f}  R2={r2:.4f} | fit {dt:.1f}s")
     print(f"Modelo registrado en MLflow con run_id: {mlflow.active_run().info.run_id}")
+
+    pass
+
+if __name__ == "__main__":
+    main()
