@@ -26,10 +26,11 @@ from __future__ import annotations
 import pendulum
 from airflow.models.dag import DAG
 from airflow.operators.python import PythonOperator
+import sys
+import os
 
-# Importar tu función de entrenamiento
-# Asegurate que train_model.py esté en el PYTHONPATH o mismo directorio
-from scripts.train_model import main as train_model_func
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'scripts')))
+from train_model import main as train_model_func
 
 with DAG(
     dag_id="entrenamiento_modelo_ml",
@@ -43,3 +44,5 @@ with DAG(
         task_id="ejecutar_entrenamiento",
         python_callable=train_model_func
     )
+
+
