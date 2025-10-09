@@ -1,4 +1,5 @@
 import mlflow
+import platform
 import os
 import joblib
 import numpy as np
@@ -8,9 +9,16 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 
+
 def main():
     # Configurar tracking apuntando al servidor MLflow UI en la host (Docker Desktop)
-    mlflow.set_tracking_uri("http://host.docker.internal:5001")
+    # Detectar entorno (Linux/Mac/Windows)
+    if platform.system() == "Linux":
+        mlflow_uri = "http://mlflow-ui:5000"
+    else:
+        mlflow_uri = "http://host.docker.internal:5001"
+
+    mlflow.set_tracking_uri(mlflow_uri)
 
     # 🔧 CORRECCIÓN: setear el experimento antes de ejecutar el run
     mlflow.set_experiment("train_model_experiment")
@@ -40,37 +48,38 @@ def main():
     with mlflow.start_run():
         # Registrar los parámetros
         mlflow.log_params(best_params)
-        
+
         # Instanciar el modelo
         best_est = RandomForestRegressor(**best_params)
-        
+
         # Entrenar el modelo y medir el tiempo
         t0 = time.time()
         best_est.fit(Xtr, ytr)
         dt = time.time() - t0
-        
+
         # Realizar predicciones y calcular métricas
         yhat = best_est.predict(Xte)
         mae = mean_absolute_error(yte, yhat)
         rmse = float(np.sqrt(mean_squared_error(yte, yhat)))
         r2 = r2_score(yte, yhat)
-        
+
         # Registrar las métricas en MLflow
         mlflow.log_metric('mae', mae)
         mlflow.log_metric('rmse', rmse)
         mlflow.log_metric('r2', r2)
         mlflow.log_metric('fit_time', dt)
-        
+
         # Guardar el modelo como archivo y loguearlo como artefacto
         os.makedirs('artifacts', exist_ok=True)
         model_path = os.path.join('artifacts', f'{best_name}.pkl')
         joblib.dump(best_est, model_path)
         mlflow.log_artifact(model_path, artifact_path=best_name)
-        
-        print(f"Modelo: {best_name} | MAE={mae:.4f}  RMSE={rmse:.4f}  R2={r2:.4f} | fit {dt:.1f}s")
-        print(f"Modelo registrado en MLflow con run_id: {mlflow.active_run().info.run_id}")
+
+        print(
+            f"Modelo: {best_name} | MAE={mae:.4f}  RMSE={rmse:.4f}  R2={r2:.4f} | fit {dt:.1f}s")
+        print(
+            f"Modelo registrado en MLflow con run_id: {mlflow.active_run().info.run_id}")
+
 
 if __name__ == "__main__":
     main()
-
-
