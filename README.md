@@ -18,7 +18,7 @@ El objetivo de este modelo es **predecir el descuento (%) aplicado a los product
 La **variable objetivo** (target) se define como:  
 
 $$
-\text{descuento} = 100 \times \left(1 - \frac{\text{precio_promo}}{\text{precio_lista}}\right)
+descuento = 100 \times \left(1 - \frac{precio\_promo}{precio\_lista}\right)
 $$
 <br>
 Esta métrica refleja el porcentaje de rebaja aplicado sobre el precio de lista de cada producto.
