@@ -11,6 +11,23 @@ Este proyecto constituye el **Trabajo Final** para la materia MLOps 1. Se dedic�
 
 El proyecto se enfoca en la automatización del proceso de entrenamiento de modelos de regresión utilizando técnicas de aprendizaje automático, específicamente implementando un RandomForestRegressor para la predicción de descuentos comerciales. La solución combina Apache Airflow para la orquestación de workflows y MLflow para el tracking de experimentos y modelos, todo containerizado con Docker para facilitar el despliegue y la reproducibilidad.
 
+**Planteo del problema**
+
+El objetivo de este proyecto es **predecir el descuento (%) aplicado a los productos** a partir de variables relacionadas con productos, sucursales y comercios. Para esto, se utiliza un **subconjunto del dataset Precios Claros**, específicamente las promociones registradas.
+
+La **variable objetivo** (target) se define como:  
+
+$$
+\text{descuento} = 100 \times \left(1 - \frac{\text{precio_promo}}{\text{precio_lista}}\right)
+$$
+<br>
+Esta métrica refleja el porcentaje de rebaja aplicado sobre el precio de lista de cada producto.
+<br><br>
+El objetivo de este proyecto es **predecir el porcentaje de descuento (`descuento`)** en productos de supermercado utilizando datos de **Precios Claros - Base SEPA**.  
+
+Fuente de datos: [datos.gob.ar](https://datos.gob.ar/dataset/produccion-precios-claros---base-sepa) (descarga del **27-06-2025**).  
+
+
 ## 👥 Integrantes del Grupo
 
 | Nombre completo              | Usuario de GitHub |
