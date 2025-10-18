@@ -13,7 +13,7 @@ El proyecto se enfoca en la automatización del proceso de entrenamiento de mode
 
 **Planteo del problema**
 
-El objetivo de este proyecto es **predecir el descuento (%) aplicado a los productos** a partir de variables relacionadas con productos, sucursales y comercios. Para esto, se utiliza un **subconjunto del dataset Precios Claros**, específicamente las promociones registradas.
+El objetivo de este modelo es **predecir el descuento (%) aplicado a los productos** a partir de variables relacionadas con productos, sucursales y comercios. Para esto, se utiliza un **subconjunto del dataset Precios Claros**, específicamente las promociones registradas.
 
 La **variable objetivo** (target) se define como:  
 
