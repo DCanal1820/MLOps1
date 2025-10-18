@@ -13,13 +13,13 @@ El proyecto se enfoca en la automatización del proceso de entrenamiento de mode
 
 ## 👥 Integrantes del Grupo
 
-Los integrantes del grupo, ordenados alfabéticamente:
-
-- **Calabia, Juan Manuel**
-- **Canal, David**
-- **Cofré Villalón, Francisco**
-- **Diaz, Natalia Beatriz**
-- **Vasquez, Jorge**
+| Nombre completo              | Usuario de GitHub |
+|------------------------------|-------------------|
+| Calabia, Juan Manuel         | musicardi |
+| Canal, David                 | DCanal1820 |
+| Cofré Villalón, Francisco    | X57FI8W9S |
+| Díaz, Natalia Beatriz        | NataliaBDiaz |
+| Vásquez, Jorge               | jorgefvg |
 
 ---
 
