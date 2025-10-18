@@ -345,3 +345,20 @@ Si tienes problemas:
 4. Abre un issue en GitHub
 
 ---
+
+## Mejoras Implementadas y Decisiones de Arquitectura
+
+Basado en la revisión del proyecto, se implementaron las siguientes mejoras para robustecer el pipeline y alinearlo con las mejores prácticas de MLOps.
+
+**Optimización del DAG - Migración de BashOperator a PythonOperator**
+
+En la versión inicial, el DAG de Airflow utilizaba un `BashOperator` para invocar el script de entrenamiento. Se decidió migrar esta tarea a un `PythonOperator` para ejecutar la función de entrenamiento de manera nativa.
+
+**Corrección de Robustez**
+Se identificó y corrigió un bug crítico que causaba una falla en el script de entrenamiento. El error se producía al intentar iniciar un run (mlflow.start_run()) antes de haber seteado explícitamente el contexto del experimento de MLflow.
+
+Para garantizar la idempotencia del pipeline (es decir, que pueda ejecutarse múltiples veces sin fallar), se agregó la siguiente línea antes de iniciar el run:
+
+`mlflow.set_experiment("train_model_experiment")`
+
+Esta línea asegura que el experimento train_model_experiment exista o sea creado antes de cualquier intento de registrar métricas o artefactos, eliminando la condición de carrera y robusteciendo el tracking de experimentos.
